@@ -37,6 +37,18 @@ class SqlHelper {
         return $stmt;
     }
 
+    static function Sql_prep_updete(array $colunas) {
+        $str_sql = '';
+        foreach ($colunas as $key => $item) {
+            if (!$key === array_key_last($colunas)) {
+                $str_sql = $str_sql . $item . "=?,";
+            } else {
+                $str_sql = $str_sql . $item . "=?";
+            }
+        }
+        return $str_sql;
+    }
+
 }
 
 ?>
