@@ -1,5 +1,5 @@
 {
-    "name": "lucas/taipaphp",
+    "name": "lucasosantos/taipaphp",
     "description": "Framework php simples e rapido",
     "type": "project",
     "autoload": {

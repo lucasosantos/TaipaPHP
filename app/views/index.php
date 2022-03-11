@@ -1,3 +1,8 @@
+<?php
+
+use App\core\Model;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,5 +14,8 @@
 </head>
 <body class="metod">
     <h1>Olá Mundo</h1>
+    <?php
+        
+    ?>
 </body>
 </html>
