@@ -2,6 +2,8 @@
     "name": "lucasosantos/taipaphp",
     "description": "Framework php simples e rapido",
     "type": "project",
+    "keywords": ["framework", "taipa"],
+    "license": "MIT",
     "autoload": {
         "files": [
             "app/config.php",
@@ -15,5 +17,10 @@
             "App\\": "app/"
         }
     },
-    "require": {}
+    "require": {
+        "php": ">=7.4",
+        "another-vendor/package": "1.*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
