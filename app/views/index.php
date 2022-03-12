@@ -1,6 +1,7 @@
 <?php
 
-use App\core\Model;
+use App\models\Matricula;
+use App\models\Oficinas;
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ use App\core\Model;
 <body class="metod">
     <h1>Olá Mundo</h1>
     <?php
-        
+
     ?>
 </body>
 </html>

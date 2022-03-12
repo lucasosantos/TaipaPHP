@@ -8,7 +8,7 @@ use PDO;
 
 class Model {
 
-    protected $table;
+    public $table;
     protected $columns = array();
 
     private function getCon(){
@@ -27,6 +27,7 @@ class Model {
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
+            echo "Erro: ".$e->getMessage();
             return false;
         }
 
@@ -35,7 +36,7 @@ class Model {
     public function listAll()
     {
         try {
-            $stmt = $this->getCon()->prepare("SELECT * FROM" . $this->table);
+            $stmt = $this->getCon()->prepare("SELECT * FROM " . $this->table);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -44,7 +45,7 @@ class Model {
         }
     }
 
-    public function listWhere($coluna,$condicao)
+    public function listWhere(string $coluna, $condicao)
     {
         try {
             $stmt = $this->getCon()->prepare("SELECT * FROM " . $this->table . " WHERE " . $coluna . " = ?");
@@ -57,7 +58,7 @@ class Model {
         }
     }
 
-    public function getOne($condicao, string $coluna) {
+    public function getOne(string $coluna, $condicao) {
         try {
             $stmt = $this->getCon()->prepare("SELECT * FROM " . $this->table . " WHERE " . $coluna . " = ?");
             $stmt = SqlHelper::Sql_prep($stmt, array($condicao));
@@ -69,7 +70,7 @@ class Model {
         }
     }
 
-    public function delete($condicao, string $coluna) {
+    public function delete(string $coluna, $condicao) {
         try {
             $stmt = $this->getCon()->prepare("DELETE FROM " . $this->table . " WHERE " . $coluna . " = ?");
             $stmt = SqlHelper::Sql_prep($stmt, array($condicao));
@@ -81,12 +82,12 @@ class Model {
         }
     }
 
-    public function update($condicao, string $coluna, array $coluna_alteracao, array $novo_valor) {
+    public function update(string $coluna, $condicao, array $coluna_alteracao, array $novo_valor) {
         $str_updete_col = SqlHelper::Sql_prep_updete($coluna_alteracao);
         array_push($novo_valor, $condicao);
         try {
             $stmt = $this->getCon()->prepare("UPDATE " . $this->table . " SET " . $str_updete_col ." WHERE ". $coluna . " = ?");
-            $stmt = SqlHelper::Sql_prep($stmt, array($condicao));
+            $stmt = SqlHelper::Sql_prep($stmt, $novo_valor);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
