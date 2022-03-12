@@ -84,7 +84,6 @@ No arquivo "app -> env_variables.php"
   
 ### Models
 
-
     namespace App\models;
     use App\core\Model;
     class nome extends Model {
@@ -106,26 +105,33 @@ Listar todos os elementos do model com uma condição
 **listWhere(coluna, condição)**
 
 ```getOne()```
+Retorna um resultado que corresponda a condição
 **getOne(coluna, condição)**
 
 ```delete()```
-**insert(coluna, condição)**
+Deleta linhas que correspondam a condição
+**delete(coluna, condição)**
 
 ```update()```
+Atualiza linhas que correspondam a condição
 **update(coluna_de_comparação, condição, colunas_alteração, novos_valores)**
 update(<coluna_comparaçao>,<condicao_comparaçao>,array(coluna_1,... coluna_n),array(valor_1,... valor_n))
   
 ### Métodos Auxiliares
   
 ```goToPage(<caminho_da_rota>)```
+Redireciona para pagina interna do sistema
 goToPage('/home')
 
 ```goToURL(<link_externo>)```
+Redireciona para link externo
 goToURL('www.google. com. br')
     
 ```getComponent(<>)```
+Recupera componente presente na pasta "componets"
 getComponent('navbar')
     
 ```getAsset(<>)```
+Recupera arquivo de assets presente na pasta "assets"
 getAsset('css-style.css')
 getAsset('nome_pasta - nome_arquivo . extenção')
