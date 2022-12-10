@@ -1,6 +1,6 @@
 <?php
 
-function Controller($uri) {
+function Controller($uri, $parametros) {
 
     [$controller, $method] = explode('@', array_values($uri)[0]);
     
@@ -16,7 +16,7 @@ function Controller($uri) {
         throw new Exception("O Methodo não existe!");
     }
 
-    $controllerInstance->$method();
+    $controllerInstance->$method($parametros);
 
 }
 

@@ -9,6 +9,11 @@ class HomeController
         views('index');
     }
 
+    public function Api()
+    {
+        views('apiteste');
+    }
+
     public function Erro()
     {
         views('error');

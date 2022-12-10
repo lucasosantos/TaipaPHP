@@ -1,21 +1,15 @@
 <?php
 
-function routers()
-{
-    return require "routers.php";
-}
-
-function uriExata($uri) {
-    if (array_key_exists($uri, routers())) {
-        return [];
-    } else {
-        return [];
+function uriExata($uri, $array) {
+    if (array_key_exists($uri, $array)) {
+        return [$uri => $array["$uri"]];
     }
+    return [];
 }
 
-function uriDinamica($uri) {
+function uriDinamica($uri, $array) {
     return array_filter(
-        routers(),
+        $array,
         function ($values) use ($uri) {
             $string = str_replace('/', '\/', ltrim($values, '/'));
             return preg_match("/^$string$/", ltrim($uri, '/'));
@@ -24,9 +18,9 @@ function uriDinamica($uri) {
     );
 }
 
-function diferencaDeParamentros($uri, $rotaEncontrada) {
-    if (!empty($rotaEncontrada)) {
-        $parametros = array_keys($rotaEncontrada)[0];
+function diferencaDeParamentros($uri, $rota) {
+    if (!empty($rota)) {
+        $parametros = array_keys($rota)[0];
         return array_diff(
             $uri,
             explode('/', ltrim($parametros))
@@ -44,24 +38,21 @@ function formatarParametros($uri, $parametros) {
     return $parametrosData;
 }
 
-function router()
-{
-
+function router($rotas){
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $httpMethod = $_SERVER['REQUEST_METHOD'];
 
-    $rotaEncontrada = uriExata($uri);
-
+    $rotaEncontrada = uriExata($uri, $rotas);
+    $parametros = [];
     if (empty($rotaEncontrada)) {
-        $rotaEncontrada = uriDinamica($uri);
+        $rotaEncontrada = uriDinamica($uri, $rotas);
         $uriExplode = explode('/', ltrim($uri));
         $parametros = formatarParametros($uriExplode, diferencaDeParamentros($uriExplode, $rotaEncontrada));
     }
-
     if (!empty($rotaEncontrada)) {
-        Controller($rotaEncontrada);
+        Controller($rotaEncontrada, $parametros);
         return;
     }
-
+    
     throw new Exception("Algo deu errado!");
-
 }

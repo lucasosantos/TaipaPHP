@@ -10,7 +10,8 @@
             "app/methods.php",
             "app/env_variables.php",
             "app/router/router.php",
-            "app/router/routers.php",
+            "app/router/web.php",
+            "app/router/api.php",
             "app/core/Controller.php"
         ],
         "psr-4": {
