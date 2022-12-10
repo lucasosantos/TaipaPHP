@@ -8,7 +8,12 @@ function api_router(){
     # '/soletras\/[a-z]+' | '/sonumeros\/[0-9]+ | '/letrasenumeros\/[a-z0-9]+'
 
     $rotasApi = [
-        '/api' => 'HomeController@api',
+        'GET' => [
+            '/api' => 'HomeController@api',
+        ],
+        //'POST' => [],
+        //'PUT' => [],
+        //'DELETE' => []
     ];
     
     router($rotasApi);

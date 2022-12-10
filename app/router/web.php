@@ -8,9 +8,13 @@ function web_router(){
     # '/soletras\/[a-z]+' | '/sonumeros\/[0-9]+ | '/letrasenumeros\/[a-z0-9]+'
 
     $rotasWeb = [
-        '/' => 'HomeController@Index',
-        '/erro' => 'HomeController@Erro',
-        '/print/nome/[a-z0-9]+' => 'HomeController@Print',
+        'GET' => [
+            '/' => 'HomeController@Index',
+            '/erro' => 'HomeController@Erro',
+        ],
+        //'POST' => [],
+        //'PUT' => [],
+        //'DELETE' => []
     ];
 
     router($rotasWeb);

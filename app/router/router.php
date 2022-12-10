@@ -42,6 +42,13 @@ function router($rotas){
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $httpMethod = $_SERVER['REQUEST_METHOD'];
 
+    if(array_key_exists($httpMethod, $rotas)) {
+        $rotas = $rotas[$httpMethod];
+    } else {
+        http_response_code(501);
+        throw new Exception("Not Implemented");
+    }
+    
     $rotaEncontrada = uriExata($uri, $rotas);
     $parametros = [];
     if (empty($rotaEncontrada)) {
@@ -53,6 +60,7 @@ function router($rotas){
         Controller($rotaEncontrada, $parametros);
         return;
     }
-    
-    throw new Exception("Algo deu errado!");
+
+    http_response_code(404);
+    throw new Exception("Not Found");
 }
