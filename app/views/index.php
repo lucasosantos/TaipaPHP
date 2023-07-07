@@ -1,8 +1,5 @@
 <?php
 
-use App\models\Matricula;
-use App\models\Oficinas;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

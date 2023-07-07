@@ -2,6 +2,9 @@
 
 require_once "../vendor/autoload.php";
 
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+$dotenv->load();
+
 try {
     
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

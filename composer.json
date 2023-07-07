@@ -8,7 +8,6 @@
         "files": [
             "app/config.php",
             "app/methods.php",
-            "app/env_variables.php",
             "app/router/router.php",
             "app/router/web.php",
             "app/router/api.php",
@@ -19,7 +18,8 @@
         }
     },
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "vlucas/phpdotenv": "^5.5"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
