@@ -1,4 +1,5 @@
 <?php
+use App\controllers\LoginController;
 
 //Redireciona para rotas internas da aplicação
 function goToPage($page){
@@ -38,6 +39,34 @@ function views($name){
     } else {
         goToPage('error');
     }
+}
+
+function estaLogado(){
+    $valido = new LoginController;
+    if (!$valido->ValidarLogin()) {
+        goToPage('logout');
+    }
+}
+
+function testeLogado(){
+    $valido = new LoginController;
+    if ($valido->ValidarLogin()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function estaLogadoLevel($level){
+    estaLogado();
+    if (userLevel() != $level) {
+        goToPage('painel');
+    }
+}
+
+function userLevel() {
+    $valido = new LoginController;
+    return $valido->GetUserLevel();
 }
 
 ?>

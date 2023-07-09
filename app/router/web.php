@@ -11,8 +11,14 @@ function web_router(){
         'GET' => [
             '/' => 'HomeController@Index',
             '/erro' => 'HomeController@Erro',
+            '/login' => 'LoginController@LoginPage',
+            '/logout' => 'LoginController@Logout',
+            '/register' => 'LoginController@RegisterPage'
         ],
-        //'POST' => [],
+        'POST' => [
+            '/login' => 'LoginController@Login',
+            '/register' => 'LoginController@Register'
+        ],
         //'PUT' => [],
         //'DELETE' => []
     ];

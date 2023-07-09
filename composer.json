@@ -19,7 +19,8 @@
     },
     "require": {
         "php": ">=7.4",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "firebase/php-jwt": "^6.8"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

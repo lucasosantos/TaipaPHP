@@ -11,7 +11,6 @@ return array(
     'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
     '27d1984fa758e3eef0b074e22951c025' => $baseDir . '/app/config.php',
     '69109000a8c60e3a74be8f4ca991f74b' => $baseDir . '/app/methods.php',
-    '9dc797d7aa22a6b21fe8295aee7b323a' => $baseDir . '/app/env_variables.php',
     '2d48d616b79180e8e1d08e6ed103cb91' => $baseDir . '/app/router/router.php',
     '3ad8b71cc389595f569c79b1ea566ad0' => $baseDir . '/app/router/web.php',
     '0aff252f49bd48f9a8f6f4949aec5661' => $baseDir . '/app/router/api.php',

@@ -3,13 +3,22 @@
         'name' => 'lucasosantos/taipaphp',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e8b3e5d4d5262f51921386369e966839f4484c60',
+        'reference' => 'b26d9573889edaf169e797052ab5de27c9a4bc92',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v6.8.0',
+            'version' => '6.8.0.0',
+            'reference' => '48b0210c51718d682e53210c24d25c5a10a2299b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'graham-campbell/result-type' => array(
             'pretty_version' => 'v1.1.1',
             'version' => '1.1.1.0',
@@ -22,7 +31,7 @@
         'lucasosantos/taipaphp' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e8b3e5d4d5262f51921386369e966839f4484c60',
+            'reference' => 'b26d9573889edaf169e797052ab5de27c9a4bc92',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

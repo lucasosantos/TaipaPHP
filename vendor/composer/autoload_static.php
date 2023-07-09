@@ -12,7 +12,6 @@ class ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '27d1984fa758e3eef0b074e22951c025' => __DIR__ . '/../..' . '/app/config.php',
         '69109000a8c60e3a74be8f4ca991f74b' => __DIR__ . '/../..' . '/app/methods.php',
-        '9dc797d7aa22a6b21fe8295aee7b323a' => __DIR__ . '/../..' . '/app/env_variables.php',
         '2d48d616b79180e8e1d08e6ed103cb91' => __DIR__ . '/../..' . '/app/router/router.php',
         '3ad8b71cc389595f569c79b1ea566ad0' => __DIR__ . '/../..' . '/app/router/web.php',
         '0aff252f49bd48f9a8f6f4949aec5661' => __DIR__ . '/../..' . '/app/router/api.php',
@@ -33,6 +32,10 @@ class ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79
         'G' => 
         array (
             'GrahamCampbell\\ResultType\\' => 26,
+        ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
         ),
         'D' => 
         array (
@@ -64,6 +67,10 @@ class ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Dotenv\\' => 
         array (
