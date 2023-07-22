@@ -72,15 +72,15 @@ Exemplo chama a view "index.php":
 
 ### Variaveis do Banco de Dados
   
-No arquivo "app -> env_variables.php"
+No arquivo ".env"
 
     //Configurações do banco de dados
-    define('SGBD','<sgbd_name>');
-    define('DB_HOST','<Host>');
-    define('DB_NAME','<Nome_Banco>');
-    define('DB_USER','<user_name>');
-    define('DB_PASS','<senha>');
-    define('DB_PORT','<porta>');
+    SGBD=mysql
+    DB_HOST=localhost
+    DB_NAME=taipa
+    DB_USER=root
+    DB_PASS=12345
+    DB_PORT=3306
   
 ### Models
 
@@ -134,4 +134,39 @@ getComponent('navbar')
 ```getAsset(<>)```
 Recupera arquivo de assets presente na pasta "assets"
 getAsset('css-style.css')
-getAsset('nome_pasta - nome_arquivo . extenção')
+getAsset("<nome_pasta> - <nome_arquivo> . <extenção>")
+
+### Métodos de segurança
+
+```pageRuleIsAuthenticated()```
+Regra de segurança colocada no controller da pagina, antes do methodo 'views('nome')'
+
+```pageRuleAuthenticatedUserLevel(<level>)```
+Regra de segurança com level de usuário
+Colocada no controller da pagina, antes do methodo 'views('nome')'
+pageRuleAuthenticatedUserLevel('ADM')
+
+```userLevel()```
+Retorna o level do usuario
+
+```testIsAutenticated()```
+retorna um booleano se o usuário esta ou não logado no sistema
+
+### Tabela para login
+
+Nome: 'user'
+
+Campos:
+- id (Int) - Primária
+- username (varchar(25))
+- password (varchar(200))
+- level (varchar(20))
+
+### Variaveis de segurança
+No arquivo ".env"
+
+//Sua chave de segurança para gerar o token JWT
+KEY="key"
+
+//O algoritimo que sua aplicação irá utilizar
+ALGORITHM='HS256'

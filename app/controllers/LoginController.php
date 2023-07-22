@@ -86,9 +86,7 @@ class LoginController
             $valido = JWT::decode($_SESSION['token'], new Key(getenv('KEY'), getenv('ALGORITHM')));
             if ($valido) {
                 if (isset($valido->user)) {
-                    if ($valido->exp > time()) {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

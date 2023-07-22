@@ -7,7 +7,7 @@
 <body class="metod">
     <h1>Olá Mundo</h1>
     <?php
-        if (testeLogado()) {
+        if (testIsAutenticated()) {
             echo 'Usuário logado: ' . $_SESSION['username'];
         }
     ?>

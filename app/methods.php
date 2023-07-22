@@ -41,14 +41,14 @@ function views($name){
     }
 }
 
-function estaLogado(){
+function pageRuleIsAuthenticated(){
     $valido = new LoginController;
     if (!$valido->ValidarLogin()) {
         goToPage('logout');
     }
 }
 
-function testeLogado(){
+function testIsAutenticated(){
     $valido = new LoginController;
     if ($valido->ValidarLogin()) {
         return true;
@@ -57,8 +57,8 @@ function testeLogado(){
     }
 }
 
-function estaLogadoLevel($level){
-    estaLogado();
+function pageRuleAuthenticatedUserLevel($level){
+    pageRuleIsAuthenticated();
     if (userLevel() != $level) {
         goToPage('painel');
     }
