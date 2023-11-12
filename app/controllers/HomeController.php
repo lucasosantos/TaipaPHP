@@ -6,16 +6,24 @@ class HomeController
 {
     public function Index()
     {
-        views('index');
+        view(
+            template: 'template',
+            view: 'index',
+        );
     }
 
-    public function Api(){
+    public function Api()
+    {
         echo json_encode("API TAIPA PHP");
     }
 
     public function Erro()
     {
         http_response_code(404);
-        views('error');
+        view(
+            template: 'template',
+            view: 'error',
+            title: 'Erro 404',
+        );
     }
 }

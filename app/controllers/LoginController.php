@@ -10,11 +10,19 @@ class LoginController
 {
 
     public function LoginPage() {
-        views('login');
+        view(
+            template: 'template',
+            view: 'Login',
+            title: 'Login',
+        );
     }
 
     public function RegisterPage() {
-        views('register');
+        view(
+            template: 'template',
+            view: 'register',
+            title: 'Register',
+        );
     }
 
     public function Login() {
