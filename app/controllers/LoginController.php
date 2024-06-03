@@ -26,7 +26,7 @@ class LoginController
     }
 
     public function Login() {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $dados = request_post();
         $user_factory = new user;
         $registro = $user_factory->getOne('username', $dados['username']);
 
@@ -35,24 +35,26 @@ class LoginController
             if (password_verify($dados['password'], $registro['password'])) {
                 // Logado
 
-                $key = getenv('KEY');
                 $payload = [
                     'exp' => time() + 60 * 60 * 24 * 1, // 2 Dias
                     'iat' => time(),
                     'user' => $dados['username']
                 ];
 
-                $jwt = JWT::encode($payload, $key, getenv('ALGORITHM'));
+                $jwt = JWT::encode($payload, KEY, ALGORITHM);
 
                 $_SESSION['token'] = $jwt;
                 $_SESSION['username'] = $dados['username'];
 
+                sendMsn('Bem-vindo(a)!', 1);
                 header('Location: /');
 
             } else {
+                sendMsn('Senha incorreta!', 3);
                 session_destroy();
             }
         } else {
+            sendMsn('Usuario não encontrado!', 3);
             session_destroy();
         };
     }
@@ -64,7 +66,7 @@ class LoginController
     }
 
     public function Register() {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $dados = request_post();
 
         $user_factory = new user;
         if ( 
@@ -91,7 +93,7 @@ class LoginController
 
     public function ValidarLogin(){
         if (isset($_SESSION['token'])) {
-            $valido = JWT::decode($_SESSION['token'], new Key(getenv('KEY'), getenv('ALGORITHM')));
+            $valido = JWT::decode($_SESSION['token'], new Key(KEY, ALGORITHM));
             if ($valido) {
                 if (isset($valido->user)) {
                     return true;

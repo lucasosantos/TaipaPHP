@@ -70,6 +70,18 @@ class Model {
         }
     }
 
+    public function getOneById(int $id) {
+        try {
+            $stmt = $this->getCon()->prepare("SELECT * FROM " . $this->table . " WHERE id = ?");
+            $stmt = SqlHelper::Sql_prep($stmt, array($id));
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erro: ".$e->getMessage();
+            return false;
+        }
+    }
+
     public function delete(string $coluna, $condicao) {
         try {
             $stmt = $this->getCon()->prepare("DELETE FROM " . $this->table . " WHERE " . $coluna . " = ?");

@@ -4,7 +4,7 @@
     <?php getComponent('head') ?>
     <title><?php if ($title != '' || $title != null) { echo $title . ' - '; } ?><?php echo APP_NOME ?></title>
 </head>
-<body class="metod">
+<body>
     <?php include $page ?>
     <?php getComponent('script') ?>
 </body>

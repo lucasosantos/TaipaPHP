@@ -9,7 +9,7 @@ class Database {
     public function getCon()
     {
         try {
-            $con = new PDO(getenv('SGBD') . ":host=" . getenv('DB_HOST') . ";dbname=" . getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'));
+            $con = new PDO(SGBD . ":host=" . DB_HOST . ";dbname=" . BD_NAME, DB_USER, DB_PASS);
             $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $con;
         } catch (PDOException $e) {

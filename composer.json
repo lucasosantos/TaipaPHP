@@ -6,8 +6,8 @@
     "license": "MIT",
     "autoload": {
         "files": [
-            "app/config.php",
-            "app/methods.php",
+            "taipa-config.php",
+            "taipa-methods.php",
             "app/router/router.php",
             "app/router/web.php",
             "app/router/api.php",

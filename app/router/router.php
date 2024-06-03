@@ -51,7 +51,7 @@ function router($rotas){
     
     $rotaEncontrada = uriExata($uri, $rotas);
     $parametros = [];
-    if (empty($rotaEncontrada)) {
+    if (empty($rotaEncontrada) || $rotaEncontrada == '/') {
         $rotaEncontrada = uriDinamica($uri, $rotas);
         $uriExplode = explode('/', ltrim($uri));
         $parametros = formatarParametros($uriExplode, diferencaDeParamentros($uriExplode, $rotaEncontrada));

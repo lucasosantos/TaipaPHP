@@ -10,33 +10,6 @@ Taipa é um método construtivo vernacular que consiste no uso de barro e madeir
 ### Get started!
   
 ```composer create-project lucasosantos/taipaphp ola_mundo```
-  
-### Estrutura das pastas
-
-app
--- controllers
--- core
--- --- Controller.php
--- --- Model.php
--- db
--- --- Database.php
--- helpers
--- --- SqlHelper.php
--- models
--- views
--- --- components
--- --- error.php
--- --- index.php
-public
--- assets
--- --- css
--- --- imgs  
--- -- js
--- bootstrap.php
--- index.php
-composer.json 
-composer.lock 
-Readme.md
 
 ### Rotas
   
@@ -108,6 +81,10 @@ Listar todos os elementos do model com uma condição
 Retorna um resultado que corresponda a condição
 **getOne(coluna, condição)**
 
+```getOneById()```
+Retorna um resultado por id
+**getOneById(id)**
+
 ```delete()```
 Deleta linhas que correspondam a condição
 **delete(coluna, condição)**
@@ -119,6 +96,10 @@ update(<coluna_comparaçao>,<condicao_comparaçao>,array(coluna_1,... coluna_n),
   
 ### Métodos Auxiliares
   
+```request_post()```
+Retorna os dados enviados via post
+request_post()
+
 ```goToPage(<caminho_da_rota>)```
 Redireciona para pagina interna do sistema
 goToPage('/home')
@@ -163,7 +144,7 @@ Campos:
 - level (varchar(20))
 
 ### Variaveis de segurança
-No arquivo ".env"
+No arquivo "taipa-config"
 
 //Sua chave de segurança para gerar o token JWT
 KEY="key"
