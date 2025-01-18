@@ -58,6 +58,17 @@ class Model {
         }
     }
 
+    public function getLastId() {
+        try {
+            $stmt = $this->getCon()->prepare("SELECT id FROM " . $this->table . " ORDER BY id DESC LIMIT 1");
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC)['id'];
+        } catch (PDOException $e) {
+            echo "Erro: ".$e->getMessage();
+            return false;
+        }
+    }
+
     public function getOne(string $coluna, $condicao) {
         try {
             $stmt = $this->getCon()->prepare("SELECT * FROM " . $this->table . " WHERE " . $coluna . " = ?");

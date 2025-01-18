@@ -1,8 +1,16 @@
 <?php
 
 require_once "vendor/autoload.php";
+$dotenv = '';
 
-$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+$dotenv_test = strpos($_SERVER['REQUEST_URI'], 'localhost') !== true;
+
+if ($dotenv_test) {
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__, '.env.dev');
+} else {
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+}
+
 $dotenv->load();
 
 try {

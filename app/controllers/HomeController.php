@@ -2,10 +2,13 @@
 
 namespace App\controllers;
 
+use App\services\SecurityService;
+
 class HomeController
 {
     public function Index()
     {
+        if (SecurityService::userIsAuthenticated()) { echo 'Usuário logado: ' . $_SESSION['username']; }
         view(
             template: 'template',
             view: 'index',

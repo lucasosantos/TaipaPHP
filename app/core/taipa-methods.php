@@ -51,39 +51,12 @@ function view(string $view, string $template = 'template', string $title = null,
     }
 }
 
-//Regra de acesso: Usuário logado
-function pageRuleIsAuthenticated(){
-    $Login = new LoginController;
-    if (!$Login->ValidarLogin()) {
-        goToPage('logout');
-    }
+function request_post_api(){
+    $inputJSON = file_get_contents('php://input');
+    return json_decode($inputJSON, true);
 }
 
-//Teste lógico para saber se o usuário esta logado, retorna true ou false
-function userIsAuthenticated(){
-    $Login = new LoginController;
-    if ($Login->ValidarLogin()) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//Regra de acesso: Usuário com nível de acesso específico
-function pageRuleAuthenticatedUserLevel($level){
-    pageRuleIsAuthenticated();
-    if (userLevel() != $level) {
-        goToPage('painel');
-    }
-}
-
-//Retorna a string do nivel do usuário
-function userLevel() {
-    $Login = new LoginController;
-    return $Login->GetUserLevel();
-}
-
-function request_post(){
+function request_post_form(){
     return filter_input_array(INPUT_POST, FILTER_DEFAULT);
 }
 
