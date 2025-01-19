@@ -13,12 +13,18 @@ Taipa é um método construtivo vernacular que consiste no uso de barro e madeir
 
 ### Rotas
   
-No arquivo "app -> router -> routers.php"
+No arquivo "app -> router -> web.php"
+Ou "app -> router -> api.php"
 
-    return [
-        '/' => 'HomeController@Index',
-        '/erro' => 'HomeController@Error',
-    ];
+    'GET' => [
+        '/api' => 'HomeController@api',
+    ],
+    'POST' => [
+        '/api/register' => 'LoginController@Api_Register',
+        '/api/login' => 'LoginController@Api_Login'
+    ],
+    //'PUT' => [],
+    //'DELETE' => []
 
 Definindo uma nova rota:
 
@@ -85,6 +91,10 @@ Retorna um resultado que corresponda a condição
 Retorna um resultado por id
 **getOneById(id)**
 
+```getLastId()```
+Retorna o id do ultimo objeto cadastrado
+**getLastId()**
+
 ```delete()```
 Deleta linhas que correspondam a condição
 **delete(coluna, condição)**
@@ -119,18 +129,17 @@ getAsset("<nome_pasta> - <nome_arquivo> . <extenção>")
 
 ### Métodos de segurança
 
-```pageRuleIsAuthenticated()```
-Regra de segurança colocada no controller da pagina, antes do methodo 'views('nome')'
+```PageRule_IsAuthenticated()```
+Regra de segurança
 
-```pageRuleAuthenticatedUserLevel(<level>)```
+```pageRule_AuthenticatedUserLevel(<level>)```
 Regra de segurança com level de usuário
-Colocada no controller da pagina, antes do methodo 'views('nome')'
-pageRuleAuthenticatedUserLevel('ADM')
+pageRule_AuthenticatedUserLevel('ADM')
 
-```userLevel()```
+```GetUserLevel()```
 Retorna o level do usuario
 
-```testIsAutenticated()```
+```IsAuthenticated()```
 retorna um booleano se o usuário esta ou não logado no sistema
 
 ### Tabela para login
