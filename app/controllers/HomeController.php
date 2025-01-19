@@ -8,13 +8,20 @@ class HomeController
 {
     public function Index()
     {
-        if (SecurityService::userIsAuthenticated()) { echo 'Usuário logado: ' . $_SESSION['username']; }
         view(
             template: 'template',
             view: 'index',
         );
     }
-
+    public function Painel()
+    {
+        SecurityService::PageRule_IsAuthenticated();
+        view(
+            template: 'template',
+            view: 'painel',
+        );
+    }
+    
     public function Api()
     {
         echo json_encode("API TAIPA PHP");

@@ -60,4 +60,9 @@ function request_post_form(){
     return filter_input_array(INPUT_POST, FILTER_DEFAULT);
 }
 
+function json_return($dados, $code){
+    http_response_code($code);
+    echo json_encode($dados);
+}
+
 ?>

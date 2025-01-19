@@ -5,6 +5,8 @@ namespace App\controllers;
 use App\models\user;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use App\services\SecurityService;
+use App\enums\StatusCode;
 
 class LoginController
 {
@@ -26,80 +28,54 @@ class LoginController
     }
 
     public function Login() {
-        $dados = request_post();
-        $user_factory = new user;
-        $registro = $user_factory->getOne('username', $dados['username']);
-
-        if ($registro) {
-            // usuario encontrado
-            if (password_verify($dados['password'], $registro['password'])) {
-                // Logado
-
-                $payload = [
-                    'exp' => time() + 60 * 60 * 24 * 1, // 2 Dias
-                    'iat' => time(),
-                    'user' => $dados['username']
-                ];
-
-                $jwt = JWT::encode($payload, KEY, ALGORITHM);
-
-                $_SESSION['token'] = $jwt;
-                $_SESSION['username'] = $dados['username'];
-
-                sendMsn('Bem-vindo(a)!', 1);
-                header('Location: /');
-
-            } else {
-                sendMsn('Senha incorreta!', 3);
-                session_destroy();
-            }
+        $dados = request_post_form();
+        if (SecurityService::Login($dados['username'], $dados['password'])) {
+            goToPage(DASHBOARD);
         } else {
-            sendMsn('Usuario não encontrado!', 3);
             session_destroy();
-        };
+            goToPage(LOGIN);
+        }
+    }
+
+    public function Api_Login() {
+        $dados = request_post_api();
+        $user = '';
+        if ($user = SecurityService::Login($dados['username'], $dados['password'])) {
+            return json_return($user,StatusCode::OK->value);
+        } else {
+            return json_return('Bad Request',StatusCode::BadRequest->value);
+        }
     }
 
     public function GetUserLevel() {
-        $user_factory = new user;
-        $registro = $user_factory->getOne('user', $_SESSION['user']);
-        return $registro['level'];
+        return SecurityService::GetUserLevel();
     }
 
     public function Register() {
-        $dados = request_post();
+        $dados = request_post_form();
 
-        $user_factory = new user;
-        if ( 
-            $user_factory->insert(
-                ['username', 'password'],
-                [
-                    $dados["username"],
-                    password_hash($dados['password'], PASSWORD_DEFAULT)
-                ]
-            )
-        ) {
-            echo "Registrado";
-        }
-        ;
+        if (SecurityService::Register($dados['username'], $dados['password'])) {
+            goToPage(LOGIN);
+        } else {
+            goToPage(REGISTER);
+        };
+    }
+
+    public function Api_Register() {
+        $dados = request_post_api();
+        if (SecurityService::Register($dados['username'], $dados['password'])) {
+            return json_return('Success',StatusCode::OK->value);
+        } else {
+            return json_return('Bad Request',StatusCode::BadRequest->value);
+        };
     }
 
     public function Logout() {
-        $_SESSION = array();
-        $_SESSION['token'] = [''];
-        $_SESSION['username'] = [''];
-        session_destroy();
+        SecurityService::CloseSession();
         goToPage('');
     }
 
-    public function ValidarLogin(){
-        if (isset($_SESSION['token'])) {
-            $valido = JWT::decode($_SESSION['token'], new Key(KEY, ALGORITHM));
-            if ($valido) {
-                if (isset($valido->user)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public function LoginIsValid(){
+        return json_return(SecurityService::TokenIsValid());
     }
 }

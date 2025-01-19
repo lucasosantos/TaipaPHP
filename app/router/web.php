@@ -10,6 +10,7 @@ function web_router(){
     $rotasWeb = [
         'GET' => [
             '/' => 'HomeController@Index',
+            '/painel' => 'HomeController@Painel',
             '/erro' => 'HomeController@Erro',
             '/login' => 'LoginController@LoginPage',
             '/logout' => 'LoginController@Logout',

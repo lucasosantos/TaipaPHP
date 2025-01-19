@@ -5,10 +5,12 @@ namespace App\services;
 use App\models\user;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use App\enums\MsnFeedback;
+use App\enums\MsnType;
 
 class SecurityService {
     
-    static function ValidarLogin(){
+    static function TokenIsValid(){
         if (isset($_SESSION['token'])) {
             $valido = JWT::decode($_SESSION['token'], new Key(KEY, ALGORITHM));
             if ($valido) {
@@ -20,99 +22,101 @@ class SecurityService {
         return false;
     }
 
-    //Regra de acesso: Usuário logado
-    static function pageRuleIsAuthenticated(){
-        if (self::ValidarLogin()) {
-            goToPage('logout');
-        }
-    }
-
     //Teste lógico para saber se o usuário esta logado, retorna true ou false
-    static function userIsAuthenticated(){
-        if (self::ValidarLogin()) {
+    static function IsAuthenticated(){
+        if (self::TokenIsValid()) {
             return true;
         } else {
             return false;
         }
     }
 
-    //Regra de acesso: Usuário com nível de acesso específico
-    public function pageRuleAuthenticatedUserLevel($level){
-        pageRuleIsAuthenticated();
-        if (userLevel() != $level) {
-            goToPage('painel');
+    //Regra de acesso: Usuário logado
+    static function PageRule_IsAuthenticated(){
+        if (!self::TokenIsValid()) {
+            goToPage(LOGOUT);
         }
     }
 
-    //Retorna a string do nivel do usuário
-    public function userLevel() {
-        $Login = new LoginController;
-        return $Login->GetUserLevel();
+    //Regra de acesso: Usuário com nível de acesso específico
+    static function pageRule_AuthenticatedUserLevel($level){
+        self::PageRule_IsAuthenticated();
+        if (self::GetUserLevel() != $level) {
+            goToPage(DASHBOARD);
+        }
     }
 
-    public function Login() {
-        $dados = request_post();
+    static function Login($username, $password) {
         $user_factory = new user;
-        $registro = $user_factory->getOne('username', $dados['username']);
+        $registro = $user_factory->getOne('username', $username);
 
         if ($registro) {
             // usuario encontrado
-            if (password_verify($dados['password'], $registro['password'])) {
+            if (password_verify($password, $registro['password'])) {
                 // Logado
 
                 $payload = [
                     'exp' => time() + 60 * 60 * 24 * 1, // 2 Dias
                     'iat' => time(),
-                    'user' => $dados['username']
+                    'user' => $username
                 ];
 
                 $jwt = JWT::encode($payload, KEY, ALGORITHM);
 
-                $_SESSION['token'] = $jwt;
-                $_SESSION['username'] = $dados['username'];
+                $user = array(
+                    'username' => $username,
+                    'token' => $jwt,
+                );
 
-                sendMsn('Bem-vindo(a)!', 1);
-                header('Location: /');
-
+                SecurityService::StartSession($username, $jwt);
+                sendMsn(MsnFeedback::LOGIN_SUCCESS->value, MsnType::SUCCESS->value);
+                return $user;
+                
             } else {
-                sendMsn('Senha incorreta!', 3);
-                session_destroy();
+                return false;
+                sendMsn(MsnFeedback::LOGIN_ERROR->value, MsnType::DANGER->value);
             }
         } else {
-            sendMsn('Usuario não encontrado!', 3);
-            session_destroy();
+            return false;
+            sendMsn(MsnFeedback::LOGIN_ERROR->value, MsnType::ERROR->value);
         };
     }
 
-    public function GetUserLevel() {
+    static function GetUserLevel() {
         $user_factory = new user;
         $registro = $user_factory->getOne('user', $_SESSION['user']);
         return $registro['level'];
     }
 
-    public function Register() {
-        $dados = request_post();
-
+    static function Register($username, $password) {
         $user_factory = new user;
         if ( 
             $user_factory->insert(
                 ['username', 'password'],
                 [
-                    $dados["username"],
-                    password_hash($dados['password'], PASSWORD_DEFAULT)
+                    $username,
+                    password_hash($password, PASSWORD_DEFAULT)
                 ]
             )
         ) {
-            echo "Registrado";
+            sendMsn(MsnFeedback::REGISTER_SUCCESS->value, MsnType::SUCCESS->value);
+            return true;
+        } else {
+            sendMsn(MsnFeedback::REGISTER_SUCCESS->value, MsnType::ERROR->value);
+            return false;
         }
         ;
     }
 
-    public function Logout() {
+    static function StartSession($username, $token) {
+        $_SESSION['token'] = $token;
+        $_SESSION['username'] = $username;
+    }
+
+    static function CloseSession() {
         $_SESSION = array();
         $_SESSION['token'] = [''];
         $_SESSION['username'] = [''];
         session_destroy();
-        goToPage('');
     }
 }
