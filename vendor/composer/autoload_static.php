@@ -4,14 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79
+class ComposerStaticInit565892e089536718161688b274923dae
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        'c6ff8f3f8ae04ab9fffa927b4037016d' => __DIR__ . '/../..' . '/app/core/taipa-config.php',
-        'c26f788eccd3a1220504a4eb496466f8' => __DIR__ . '/../..' . '/app/core/taipa-methods.php',
+        '7cec1cc6adbee51b10a2e60533455edd' => __DIR__ . '/../..' . '/app/core/Config.php',
+        '7b91762db78386cbaf5bbbdd5f58f2c1' => __DIR__ . '/../..' . '/app/helpers/helpers.php',
         '2d48d616b79180e8e1d08e6ed103cb91' => __DIR__ . '/../..' . '/app/router/router.php',
         '3ad8b71cc389595f569c79b1ea566ad0' => __DIR__ . '/../..' . '/app/router/web.php',
         '0aff252f49bd48f9a8f6f4949aec5661' => __DIR__ . '/../..' . '/app/router/api.php',
@@ -94,9 +94,9 @@ class ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcc2b93ac2e97669ceece6e29fdbb5e79::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit565892e089536718161688b274923dae::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit565892e089536718161688b274923dae::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit565892e089536718161688b274923dae::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -13,6 +13,7 @@ function Controller($uri, $parametros) {
     $controllerInstance = new $controllerCompleto;
 
     if (!method_exists($controllerInstance, $method)) {
+        echo $method;
         throw new Exception("O Methodo não existe!");
     }
 

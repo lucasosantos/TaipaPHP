@@ -1,12 +1,23 @@
 <?php
+namespace App\Models;
 
-namespace App\models;
+use App\Core\Model;
 
-use App\core\Model;
-
-class user extends Model {
-    public $table = "user";
-
-    // id, username, password
-
+class User extends Model {
+    protected string $table = "user";
+    
+    // Colunas que podem ser preenchidas em massa
+    protected array $fillable = [
+        'username',
+        'email',
+        'level',
+        'password'
+    ];
+    
+    // Colunas protegidas (não podem ser preenchidas em massa)
+    protected array $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
 }

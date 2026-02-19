@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php getComponent('head') ?>
+    <?php component('head') ?>
     <title>Document</title>
 </head>
 <body>

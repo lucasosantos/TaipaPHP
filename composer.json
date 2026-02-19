@@ -6,8 +6,9 @@
     "license": "MIT",
     "autoload": {
         "files": [
-            "app/core/taipa-config.php",
-            "app/core/taipa-methods.php",
+            "app/core/Config.php",
+            "app/core/Controller.php",
+            "app/helpers/helpers.php",
             "app/router/router.php",
             "app/router/web.php",
             "app/router/api.php",
@@ -25,3 +26,4 @@
     "minimum-stability": "dev",
     "prefer-stable": true
 }
+

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php getComponent('head') ?>
-    <title>Register - <?php echo APP_NOME ?></title>
+    <?php component('head') ?>
+    <title>Register</title>
 </head>
 <body class="metod">
     <h1>Register</h1>

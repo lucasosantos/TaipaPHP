@@ -1,30 +1,34 @@
 <?php
 
-namespace App\controllers;
+namespace App\Controllers;
 
-use App\services\SecurityService;
+use App\Http\JsonResponse;
+use App\Security\ApiSecurity;
+use App\Security\WebSecurity;
 
 class HomeController
 {
     public function Index()
     {
-        view(
-            template: 'template',
-            view: 'index',
-        );
+        ApiSecurity::requireAuth();
+        return new JsonResponse(true, ['message' => 'Bem-vindo à API TaipaPHP!']);
     }
+
     public function Painel()
     {
-        SecurityService::PageRule_IsAuthenticated();
-        view(
-            template: 'template',
-            view: 'painel',
-        );
+        ApiSecurity::requireLevel('admin');
+        
+        return new JsonResponse(true, ['message' => 'Bem-vindo ao painel administrativo da API TaipaPHP!']);
     }
-    
-    public function Api()
+
+    public function DashAdmin()
     {
-        echo json_encode("API TAIPA PHP");
+        WebSecurity::requireLevel('admin');
+
+        jsonResponse([
+            'message' => 'Bem-vindo ao dashboard de administrador!',
+            'user' => $_SESSION['user'] ?? null
+        ]);
     }
 
     public function Erro()
@@ -32,8 +36,7 @@ class HomeController
         http_response_code(404);
         view(
             template: 'template',
-            view: 'error',
-            title: 'Erro 404',
+            view: 'error'
         );
     }
 }

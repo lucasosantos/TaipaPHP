@@ -1,32 +1,39 @@
 <?php
 
-function api_router(){
-
-    // Define que o tipo de conteúdo da resposta é JSON
-    header('Content-Type: application/json');
-
-    // Headers adicionais
-    header('Access-Control-Allow-Origin: *'); // Permitir acesso de qualquer origem
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS'); // Métodos permitidos
-    header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Headers permitidos
-
-    #Rotas da api
-    #Rota exata | '/user' => 'NameController@NameMethod',
-    #Rotas dinamica | '/user/VarName/[a-z][0-9]+' => 'NameController@NameMethod',
-    # '/soletras\/[a-z]+' | '/sonumeros\/[0-9]+ | '/letrasenumeros\/[a-z0-9]+'
-
-    $rotasApi = [
-        'GET' => [
-            '/api' => 'HomeController@api',
+return [
+    'routes' => [
+        [
+            'method' => 'POST',
+            'path' => '/api/login',
+            'handler' => [\App\Controllers\AuthController::class, 'login']
         ],
-        'POST' => [
-            '/api/register' => 'LoginController@Api_Register',
-            '/api/login' => 'LoginController@Api_Login'
+        [
+            'method' => 'POST',
+            'path' => '/api/register',
+            'handler' => [\App\Controllers\AuthController::class, 'create']
         ],
-        //'PUT' => [],
-        //'DELETE' => []
-    ];
+    ],
     
-    router($rotasApi);
-
-}
+    'groups' => [
+        [
+            'prefix' => '/api/painel',
+            'callback' => function($router) {
+                // Users
+                $router->get('/', [\App\Controllers\HomeController::class, 'index']);
+                $router->get('/dash', [\App\Controllers\HomeController::class, 'Painel']);
+            }
+        ],
+        [
+            'prefix' => '/api/posts',
+            'callback' => function($router) {
+                // Users
+                $router->get('/', [\App\Controllers\PostController::class, 'Index']);
+                
+                // Posts
+                $router->post('/create', [\App\Controllers\PostController::class, 'Create']);
+                $router->delete('/delete/{id}', [\App\Controllers\PostController::class, 'Delete']);
+                $router->put('/update/{id}', [\App\Controllers\PostController::class, 'Update']);
+            }
+        ]
+    ]
+];

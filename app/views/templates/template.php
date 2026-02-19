@@ -1,11 +1,17 @@
+<?php
+
+use App\Core\Config;
+$config = Config::getInstance();
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php getComponent('head') ?>
-    <title><?php if ($title != '' || $title != null) { echo $title . ' - '; } ?><?php echo APP_NOME ?></title>
+    <?php component('head') ?>
+    <title><?php echo $config->get('app.name') ?></title>
 </head>
 <body>
     <?php include $page ?>
-    <?php getComponent('script') ?>
+    <?php component('script') ?>
 </body>
 </html>
